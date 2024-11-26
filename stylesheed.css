@@ -1,0 +1,18 @@
+.selectDisplayLayout {
+    display: flex;
+    
+}
+
+.btnLayout {
+    margin:  0 0.5rem;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+
+}
+#table {
+    display: block;
+}
+#list {
+    display: none;
+}
