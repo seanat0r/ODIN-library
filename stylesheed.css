@@ -21,6 +21,12 @@
 #list {
     display: none;
 }
+.readIt:hover {
+    background-color: #909090;
+}
+.readIt:click {
+    background-color: #f0f8ff;
+}
 
 /* Table style */
 table {
@@ -34,6 +40,22 @@ th, td {
 }
 th {
     background-color: #f2f2f2;
+}
+
+.newBtn {
+    border: 1px solid #000;
+    padding: 8px;
+    width: 4rem;
+    height: 57.2px;
+    text-align: left;
+    font: inherit;
+    border-top: none;
+    border-left: none;
+    text-align: center;
+    background-color: #fde4e4;
+}
+.newBtn:hover {
+    background-color: #bb3333cb;
 }
 
 /* List Style as Cards like */
@@ -68,6 +90,15 @@ ul:hover {
 }
 .name {
     border-bottom: 1px solid #000;
+}
+.newBtnList {
+    padding: 0.5rem;
+    width: 100%;
+    border-top: 2px solid #000;
+    background-color: #fde4e4;
+}
+.newBtnList:hover {
+    background-color: #bb3333cb;
 }
 
 /* Adding a Book Style (Aside) */

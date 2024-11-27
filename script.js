@@ -37,32 +37,94 @@ const myLibrary = [
 ];
 
 const formBook = document.querySelector("#bookForm");
+const title = formBook.elements["Title"];
+const author = formBook.elements["Author"];
+const pages = formBook.elements["Pages"];
+const read = formBook.elements["Read"];
+const genre = formBook.elements["Genre"];
+
+const aside = document.querySelector("#aside");
 
 const selectBtn = document.querySelector("#selectBtn");
 const btnTable = document.querySelector("#BtnTable");
 const btnList = document.querySelector("#BtnList");
-const btnAdd = document.querySelector("#BtnAdd")
+const btnAdd = document.querySelector("#BtnAdd");
 
 const table = document.querySelector("#bookTable");
 const list = document.querySelector("#list");
 
 const tabelBody = document.querySelector("#tabelBody");
 
-function Book() {
-	// the constructor...
+function Book(name, author, pages, read, genre) {
+	this.name = name;
+	this.author = author;
+	this.pages = pages;
+	this.read = read;
+	this.genre = genre;
 }
 
 function addBookToLibrary(event) {
 	event.preventDefault();
-	
+
+	let myBook = new Book(
+		title.value,
+		author.value,
+		pages.value,
+		read.value,
+		genre.value
+	);
+	myLibrary.push(myBook);
+
+	if (document.querySelector("#table")) {
+		setTableDisplay();
+	}
+	if (document.querySelector("#list")) {
+		setListDisplay();
+	}
 }
 
-function displayCardItem(element) {
+function removeBook(click) {
+	let deletingBook = parseInt(click.getAttribute("data-Index"));
+
+	myLibrary.splice(deletingBook, 1);
+
+	if (document.querySelector("#table")) {
+		setTableDisplay();
+	}
+	if (document.querySelector("#list")) {
+		setListDisplay();
+	}
+}
+
+function changeReadStatus(click) {
+	let parentClick = click.parentNode;
+
+	let bookIndex = parseInt(parentClick.getAttribute("data-Index"));
+
+	let book = myLibrary[bookIndex];
+
+	if (book.read) {
+		book.read = false;
+	} else {
+		book.read = true;
+	}
+
+	if (document.querySelector("#table")) {
+		setTableDisplay();
+	}
+	if (document.querySelector("#list")) {
+		setListDisplay();
+	}
+}
+
+function displayCardItem(element, index) {
 	const newUl = document.createElement("ul");
 	list.appendChild(newUl);
+	newUl.setAttribute("data-Index", index);
 
 	for (let information = 0; information <= 5; ++information) {
 		const newLi = document.createElement("li");
+		const newBtn = document.createElement("button");
 		if (information === 0) {
 			let newContentName = element.name;
 			newLi.innerText = newContentName;
@@ -80,10 +142,16 @@ function displayCardItem(element) {
 			let newContentRead = element.read;
 			newLi.innerText = newContentRead;
 			newUl.appendChild(newLi);
+			newLi.classList.add("readIt");
+			newLi.getAttribute("data-read", newLi.innerText);
 		} else if (information === 4) {
 			let newContentGenre = element.genre;
 			newLi.innerText = newContentGenre;
 			newUl.appendChild(newLi);
+		} else if (information === 5) {
+			newBtn.innerText = "🗑️";
+			newUl.appendChild(newBtn);
+			newBtn.classList.add("newBtnList");
 		}
 	}
 }
@@ -93,12 +161,14 @@ function setListDisplay() {
 	myLibrary.forEach(displayCardItem);
 }
 
-function displayItemRow(element) {
+function displayItemRow(element, index) {
 	const newTr = document.createElement("tr");
 	tabelBody.appendChild(newTr);
+	newTr.setAttribute("data-Index", index);
 
 	for (let information = 0; information <= 5; ++information) {
 		const newTd = document.createElement("td");
+		const newBtn = document.createElement("button");
 		if (information === 0) {
 			let newContentName = element.name;
 			newTd.innerText = newContentName;
@@ -115,15 +185,21 @@ function displayItemRow(element) {
 			let newContentRead = element.read;
 			newTd.innerText = newContentRead;
 			newTr.appendChild(newTd);
+			newTd.classList.add("readIt");
+			newTd.getAttribute("data-read", newTd.innerText);
 		} else if (information === 4) {
 			let newContentGenre = element.genre;
 			newTd.innerText = newContentGenre;
 			newTr.appendChild(newTd);
+		} else if (information === 5) {
+			newBtn.innerText = "🗑️";
+			newTr.appendChild(newBtn);
+			newBtn.classList.add("newBtn");
 		}
 	}
 }
 function setTableDisplay() {
-	tabelBody.innerHTML = ""
+	tabelBody.innerHTML = "";
 	myLibrary.forEach(displayItemRow);
 }
 function activatTable() {
@@ -137,7 +213,7 @@ function activatList() {
 	setListDisplay();
 }
 function activatAdd() {
-	document.querySelector("#aside").style.display = "block";
+	aside.style.display = "block";
 }
 
 function clickOnBtnDisplay(event) {
@@ -149,8 +225,17 @@ function clickOnBtnDisplay(event) {
 		activatList();
 	} else if (click === btnAdd) {
 		activatAdd();
-	} else {
-		
+	} else if (
+		click.classList.contains("newBtn") ||
+		click.classList.contains("newBtnList")
+	) {
+		console.log("delete");
+		removeBook(click);
+	} else if (click.classList.contains("readIt")) {
+		changeReadStatus(click);
+	}
+	if (!aside.contains(click) && click !== btnAdd) {
+		aside.style.display = "none";
 	}
 }
 
