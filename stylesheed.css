@@ -1,18 +1,98 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 .selectDisplayLayout {
     display: flex;
     
 }
 
 .btnLayout {
-    margin:  0 0.5rem;
-    width: 24px;
+    margin:  0.5rem 0.5rem;
+    width: 5rem;
     height: 24px;
     text-align: center;
 
 }
 #table {
-    display: block;
+    display: none;
 }
 #list {
     display: none;
+}
+
+/* Table style */
+table {
+    border-collapse: collapse;
+    margin: 1rem;
+}
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+/* List Style as Cards like */
+#list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    margin: 1rem;
+}
+ul {
+    border: 2px solid #000;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px #b7b7b7;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    width: 15rem; 
+    justify-content: center;
+    align-items: start;
+    list-style: none;
+}
+li {
+    padding: 0.5rem;
+    width: 100%;
+}
+
+ul:hover {
+    background-color: #f7f7f7;
+}
+.name {
+    border-bottom: 1px solid #000;
+}
+
+/* Adding a Book Style (Aside) */
+aside {
+    position: fixed;
+    width: 25%;
+    display: none;
+    z-index: 2;
+    margin: 1rem 30% 1rem 1rem;
+    padding: 1rem;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }

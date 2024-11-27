@@ -9,9 +9,43 @@
 </head>
 <body>
     <div class="selectDisplayLayout" id="selectBtn">
+        <button id="BtnAdd" class="btnLayout">＋</button>
         <button id="BtnTable" class="btnLayout">𓊳</button>
         <button id="BtnList" class="btnLayout">📋</button>
     </div>
+    <aside id="aside">
+        <div class="flexBox">
+            <form id="bookForm">
+                <label for="Title">Book Title:</label>
+                <input type="text" id="Title" name="Title">
+            
+                <label for="Author">Book Author:</label>
+                <input type="text" id="Author" name="Author">
+            
+                <label for="Pages">Number of Pages:</label>
+                <input type="number" id="Pages" name="Pages">
+            
+                <fieldset>
+                    <legend>Read Status:</legend>
+
+                    <div class="wrapper">
+                        <label for="ReadYes">Read it</label>
+                        <input type="radio" name="Read" id="ReadYes" value="true">
+                    </div>
+                    <div class="wrapper">
+                        <label for="ReadNo">Didn't read</label>
+                        <input type="radio" name="Read" id="ReadNo" value="false">
+                    </div>
+                    
+                </fieldset>
+            
+                <label for="Genre">Genre:</label>
+                <input type="text" id="Genre" name="Genre">
+            
+                <button type="submit">Add Book</button>
+            </form>
+        </div>
+    </aside>
     <div class="displayBooks">
         <div id="table">
             <table id="bookTable">
@@ -20,19 +54,17 @@
                         <th>Title</th>
                         <th>Author</th>
                         <th>Pages</th>
-                        <th>Genre</th>
                         <th>Read</th>
+                        <th>Genre</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabelBody">
                     <!-- JS -->
                 </tbody>
             </table>
         </div>
         <div id="list">
-            <ul id="booklist">
                 <!-- JS -->
-            </ul>
         </div>
 
     </div>
