@@ -66,20 +66,30 @@ function Book(name, author, pages, read, genre) {
 function addBookToLibrary(event) {
 	event.preventDefault();
 
-	let myBook = new Book(
-		title.value,
-		author.value,
-		pages.value,
-		read.value,
-		genre.value
-	);
-	myLibrary.push(myBook);
+	//TODO: IF statement überpüfen
+	console.log("before validation");
+	if (formBook.checkValidity()) {
+		//* Validation succesfull
 
-	if (document.querySelector("#table")) {
-		setTableDisplay();
-	}
-	if (document.querySelector("#list")) {
-		setListDisplay();
+		let myBook = new Book(
+			title.value,
+			author.value,
+			pages.value,
+			read.value,
+			genre.value
+		);
+
+		myLibrary.push(myBook);
+
+		if (document.querySelector("#table")) {
+			setTableDisplay();
+		}
+		if (document.querySelector("#list")) {
+			setListDisplay();
+		}
+	} else {
+		console.alert("Validation failed");
+		formBook.reportValidity();
 	}
 }
 
