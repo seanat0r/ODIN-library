@@ -64,12 +64,14 @@ function Book(name, author, pages, read, genre) {
 }
 
 function addBookToLibrary(event) {
+	console.log("FORM SUBMITTED!");
 	event.preventDefault();
 
 	//TODO: IF statement überpüfen
 	console.log("before validation");
 	if (formBook.checkValidity()) {
 		//* Validation succesfull
+		console.log("validation succesfull!");
 
 		let myBook = new Book(
 			title.value,
@@ -88,7 +90,14 @@ function addBookToLibrary(event) {
 			setListDisplay();
 		}
 	} else {
-		console.alert("Validation failed");
+		console.warn("Validation failed");
+		[title, author, pages, read, genre].forEach((input) => {
+			if (input.validity.valueMissing) {
+				input.setCustomValidity("Field is Empty!");
+			} else {
+				input.setCustomValidity("");
+			}
+		});
 		formBook.reportValidity();
 	}
 }
@@ -248,6 +257,8 @@ function clickOnBtnDisplay(event) {
 		aside.style.display = "none";
 	}
 }
+console.log(formBook);
 
 document.addEventListener("click", clickOnBtnDisplay);
-document.addEventListener("submit", addBookToLibrary);
+formBook.addEventListener("submit", addBookToLibrary);
+

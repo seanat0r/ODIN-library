@@ -17,13 +17,13 @@
         <div class="flexBox">
             <form id="bookForm">
                 <label for="Title">Book Title:</label>
-                <input type="text" id="Title" name="Title" required min="3" maxlength="100">
+                <input type="text" id="Title" name="Title" required minlength="3" maxlength="100">
             
                 <label for="Author">Book Author:</label>
-                <input type="text" id="Author" name="Author" min="3" maxlength="50">
+                <input type="text" id="Author" name="Author" minlength="3" maxlength="50">
             
                 <label for="Pages">Number of Pages:</label>
-                <input type="number" id="Pages" name="Pages" min="1">
+                <input type="number" id="Pages" name="Pages" minlength="1">
             
                 <fieldset>
                     <legend>Read Status:</legend>
@@ -40,7 +40,7 @@
                 </fieldset>
             
                 <label for="Genre">Genre:</label>
-                <input type="text" id="Genre" name="Genre" min="3">
+                <input type="text" id="Genre" name="Genre" minlength="3">
             
                 <button type="submit">Add Book</button>
             </form>
