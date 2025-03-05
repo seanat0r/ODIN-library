@@ -65,12 +65,8 @@ function Book(name, author, pages, read, genre) {
 
 function addBookToLibrary(event) {
 	console.log("FORM SUBMITTED!");
-	event.preventDefault();
 
-	//TODO: IF statement überpüfen
-	console.log("before validation");
 	if (formBook.checkValidity()) {
-		//* Validation succesfull
 		console.log("validation succesfull!");
 
 		let myBook = new Book(
@@ -91,13 +87,6 @@ function addBookToLibrary(event) {
 		}
 	} else {
 		console.warn("Validation failed");
-		[title, author, pages, read, genre].forEach((input) => {
-			if (input.validity.valueMissing) {
-				input.setCustomValidity("Field is Empty!");
-			} else {
-				input.setCustomValidity("");
-			}
-		});
 		formBook.reportValidity();
 	}
 }
@@ -117,16 +106,10 @@ function removeBook(click) {
 
 function changeReadStatus(click) {
 	let parentClick = click.parentNode;
-
 	let bookIndex = parseInt(parentClick.getAttribute("data-Index"));
-
 	let book = myLibrary[bookIndex];
 
-	if (book.read) {
-		book.read = false;
-	} else {
-		book.read = true;
-	}
+	book.read = !book.read;
 
 	if (document.querySelector("#table")) {
 		setTableDisplay();
@@ -217,48 +200,53 @@ function displayItemRow(element, index) {
 		}
 	}
 }
+
 function setTableDisplay() {
 	tabelBody.innerHTML = "";
 	myLibrary.forEach(displayItemRow);
 }
+
 function activatTable() {
 	document.querySelector("#table").style.display = "block";
 	document.querySelector("#list").style.display = "none";
 	setTableDisplay();
 }
+
 function activatList() {
 	document.querySelector("#list").style.display = "flex";
 	document.querySelector("#table").style.display = "none";
 	setListDisplay();
 }
+
 function activatAdd() {
 	aside.style.display = "block";
 }
 
-function clickOnBtnDisplay(event) {
-	let click = event.target;
-	console.log(click);
-	if (click === btnTable) {
-		activatTable();
-	} else if (click === btnList) {
-		activatList();
-	} else if (click === btnAdd) {
-		activatAdd();
-	} else if (
-		click.classList.contains("newBtn") ||
-		click.classList.contains("newBtnList")
-	) {
-		console.log("delete");
+btnTable.addEventListener("click", activatTable);
+btnList.addEventListener("click", activatList);
+btnAdd.addEventListener("click", activatAdd);
+
+console.log(formBook);
+formBook.addEventListener("submit", (event) => {
+	console.log("submit clicked");
+	event.preventDefault();
+	addBookToLibrary(event);
+});
+
+list.addEventListener("click", (event) => {
+	const click = event.target;
+	if (click.classList.contains("newBtnList")) {
 		removeBook(click);
 	} else if (click.classList.contains("readIt")) {
 		changeReadStatus(click);
 	}
-	if (!aside.contains(click) && click !== btnAdd) {
-		aside.style.display = "none";
+});
+
+table.addEventListener("click", (event) => {
+	const click = event.target;
+	if (click.classList.contains("newBtn")) {
+		removeBook(click);
+	} else if (click.classList.contains("readIt")) {
+		changeReadStatus(click);
 	}
-}
-console.log(formBook);
-
-document.addEventListener("click", clickOnBtnDisplay);
-formBook.addEventListener("submit", addBookToLibrary);
-
+});
